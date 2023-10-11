@@ -6,13 +6,15 @@ const port = 5000;
 
 // // Import middleware and routes
 // const middleware = require('./middleware');
-const routes = require('./src/routes/routes');
+//const routes = require('./src/routes/routes');
+const user = require('./src/routes/user');
 
 // // Use middleware
 // app.use(middleware);
 
 // Use routes
-app.use(routes);
+//app.use(routes);
+app.use(user);
 
 // Serve Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
