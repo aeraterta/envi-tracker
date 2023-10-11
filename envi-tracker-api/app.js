@@ -2,7 +2,7 @@ const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // // Import middleware and routes
 // const middleware = require('./middleware');
