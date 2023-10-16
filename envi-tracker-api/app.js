@@ -1,28 +1,27 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 const swaggerSpec = require('./swagger');
 const app = express();
-const port = 5000;
 
-// // Import middleware and routes
-// const middleware = require('./middleware');
-//const routes = require('./src/routes/routes');
-const user = require('./src/routes/user');
+dotenv.config();
 
-// // Use middleware
-// app.use(middleware);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// Use routes
-//app.use(routes);
-app.use(user);
+const port = parseInt(process.env.PORT, 10) || 5000;
+const host = process.env.HOST || 'localhost';
 
 // Serve Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get('/', (req, res) => {
-  res.send('Hello, Express!');
+
+const server = app.listen( port, host, () => {
+  console.log(`The server is running at ${host}:${port}`);
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
-});
+require('./src/routes')(app);
+app.get('*', (req, res) => res.status(200).send({
+  message: 'Welcome to envi-tracker API!',
+}));

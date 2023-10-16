@@ -2,25 +2,23 @@ version: '3.9'
 
 services:
   
-  # db:
-  #   image: postgres:14-alpine
-  #   ports:
-  #     - "5433:5432"
-  #   environment: 
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=todolist
-  #     - POSTGRES_DB=postgres
-  #   volumes:
-  #     - ./postgres-table-init.sql:/docker-entrypoint-initdb.d/postgres-table-init.sql
-
-  envi-tracker-api:
-    build:
-      context: ./envi-tracker-api
-      dockerfile: Dockerfile
+  envi-tracker-db:
+    image: postgres:14-alpine
     ports:
-      - "3000:3000"
-    # depends_on: 
-    #   - db
+      - "5433:5432"
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=envi-db
+
+  # envi-tracker-api:
+  #   build:
+  #     context: ./envi-tracker-api
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on: 
+  #     - envi-tracker-db
     # environment: 
     #   - USER=postgres
     #   - HOST=db
